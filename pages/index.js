@@ -1,17 +1,13 @@
-import styled from 'styled-components'
-import db from '../db.json'
-import Widget from '../src/components/Widget'
-import Footer from '../src/components/Footer'
-import GitHubCorner from '../src/components/GitHubCorner'
-import QuizBackground from '../src/components/QuizBackground'
-import QuizLogo from '../src/components/QuizLogo'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
-// const BackgroundImage = styled.div`
-//   background-image: url(${db.bg});
-//   background-size: cover;
-//   flex: 1;
-//   background-position: center;
-// `
+import db from '../db.json';
+import Widget from '../src/components/Widget';
+import Footer from '../src/components/Footer';
+import GitHubCorner from '../src/components/GitHubCorner';
+import QuizBackground from '../src/components/QuizBackground';
+import QuizLogo from '../src/components/QuizLogo';
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -22,10 +18,12 @@ export const QuizContainer = styled.div`
     margin: auto;
     padding: 15px;
   }
-`
-
+`;
 
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = useState('');
+
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
@@ -35,7 +33,21 @@ export default function Home() {
             <h1>The Legend of Zelda</h1>
           </Widget.Header>
           <Widget.Content>
-            <p>asdfsdfs</p>
+            <form onSubmit={($e) => {
+              $e.preventDefault();
+              router.push(`/quiz?name=${name}`);
+            }}
+            >
+              <input
+                onChange={($e) => {
+                  setName($e.target.value);
+                }}
+                placeholder="Diz ai seu nome para jogar =)" />
+              <button type="submit" disabled={name.length === 0}>
+                Jogar
+                {name}
+              </button>
+            </form>
           </Widget.Content>
         </Widget>
         <Widget>
@@ -50,5 +62,5 @@ export default function Home() {
       </QuizContainer>
       <GitHubCorner projectUrl="http://blablabla.com" />
     </QuizBackground>
-  )
+  );
 }
