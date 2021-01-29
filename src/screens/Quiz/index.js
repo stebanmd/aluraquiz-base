@@ -1,32 +1,35 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import db from '../db.json';
-import Widget from '../src/components/Widget';
-import QuizLogo from '../src/components/QuizLogo';
-import QuizBackground from '../src/components/QuizBackground';
-import QuizContainer from '../src/components/QuizContainer';
-import Button from '../src/components/Button';
-import AlternativeForm from '../src/components/AlternativeForm';
+import { useRouter } from 'next/router';
+import Widget from '../../components/Widget';
+import QuizLogo from '../../components/QuizLogo';
+import QuizBackground from '../../components/QuizBackground';
+import QuizContainer from '../../components/QuizContainer';
+import Button from '../../components/Button';
+import AlternativeForm from '../../components/AlternativeForm';
+import Spinner from '../../components/Spinner';
+import BackLinkArrow from '../../components/BackLinkArrow';
 
 function ResultWidget({ results }) {
+  const router = useRouter();
+
   return (
     <Widget>
       <Widget.Header>
         Resultado
       </Widget.Header>
       <Widget.Content>
-
         <p>
           {/* {`Você acertou ${results.reduce((somatoriaAtual, resultAtual) => {
             const isAcerto = resultAtual === true;
             if (isAcerto) return somatoriaAtual + 1;
             return somatoriaAtual;
           })} preguntas`} */}
-          {`Você acertou ${results.filter((x) => x).length} preguntas`}
+          {`${router.query.name}, você acertou ${results.filter((x) => x).length} preguntas`}
         </p>
         <ul>
           {results.map((result, i) => (
-            <li key={i}>
+            <li key={`${result}_${i}`}>
               {`#${i + 1} Resultado: ${result === true ? 'Acertou' : 'Errou'}`}
             </li>
           ))}
@@ -43,7 +46,7 @@ function LoadingWidget() {
         Carregando...
       </Widget.Header>
       <Widget.Content>
-        [Desafio do Loading]
+        <Spinner>Loading...</Spinner>
       </Widget.Content>
     </Widget>
   );
@@ -64,7 +67,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
-        {/* <BackLinkArrow href="/" /> */}
+        <BackLinkArrow href="/" />
         <h3>
           {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
         </h3>
@@ -96,7 +99,7 @@ function QuestionWidget({
               onSubmit(isCorrect);
               setIsQuestionSubmited(false);
               setSelectedAlternative(undefined);
-            }, 2 * 1000);
+            }, 1 * 1000);
           }}
         >
           {question.alternatives.map((alternative, alternativeIndex) => {
@@ -143,13 +146,13 @@ const screenStates = {
   LOADING: 'LOADING',
   RESULT: 'RESULT',
 };
-export default function QuizPage() {
+export default function QuizScreen({ externalQuestions, externalBg }) {
   const [screenState, setScreenState] = React.useState(screenStates.LOADING);
   const [results, setResults] = useState([]);
-  const totalQuestions = db.questions.length;
+  const totalQuestions = externalQuestions.length;
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const questionIndex = currentQuestion;
-  const question = db.questions[questionIndex];
+  const question = externalQuestions[questionIndex];
 
   // [React chama de: Efeitos || Effects]
   // nasce === didMount
@@ -173,7 +176,7 @@ export default function QuizPage() {
   }
 
   return (
-    <QuizBackground backgroundImage={db.bg}>
+    <QuizBackground backgroundImage={externalBg}>
       <QuizContainer>
         <QuizLogo />
         {screenState === screenStates.QUIZ && (
