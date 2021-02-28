@@ -4,25 +4,27 @@
   "description": "Teste os seus conhecimentos sobre CSS e vamos ver quantos layouts você vai deixar de quebrar",
   "questions": [
     {
-      "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
-      "title": "Como fazer um seletor por id via CSS?",
+      "image": "https://static.wikia.nocookie.net/yakuza/images/9/94/Kazuma_Kiryu_in_Yakuza_6.jpg/revision/latest?cb=20160918093002",
+      "title": "Qual o nome do personagem principal?",
       "description": "Essa é pra aquecer",
-      "answer": 2,
+      "answer": 0,
       "alternatives": [
-        ".elemento",
-        "*elemento",
-        "#elemento",
-        "%elemento"
+        "Kiryu",
+        "Kyriu",
+        "Kazuki",
+        "Kato"
       ]
     },
     {
-      "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
-      "title": "Como fazer um background gradiente com css?",
+      "image": "https://o.aolcdn.com/images/dimse/5845cadfecd996e0372f/c06af121e8f62948e961a0cbececd8f23ab856bb/cmVzaXplPTIwMDAlMkMyMDAwJTJDc2hyaW5rJmltYWdlX3VyaT1odHRwcyUzQSUyRiUyRnMueWltZy5jb20lMkZvcyUyRmNyZWF0ci11cGxvYWRlZC1pbWFnZXMlMkYyMDE5LTA2JTJGNGRlN2M5MDAtOGQ2NS0xMWU5LWI1YmEtOTE3YzZjNThhYzNlJmNsaWVudD1hMWFjYWMzZTFiMzI5MDkxN2Q5MiZzaWduYXR1cmU9MWRkMWU2MmFkZmUxNjk0MWE4MTM2ZDBhZTZjZjZlMWE3MDBjNTFkNw==",
+      "title": "Quem é esse Personagem?",
       "description": "Faz tempo em haha",
-      "answer": 0,
+      "answer": 2,
       "alternatives": [
-         "background: linear-gradient(#e66465, #9198e5);",
-         "background: gradient(#e66465, #9198e5);"
+         "Haruto",
+         "Takeru",
+         "Yagami",
+         "Taiga"
       ]
     }
   ],
